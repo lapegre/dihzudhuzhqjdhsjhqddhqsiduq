@@ -8,9 +8,15 @@ const admin = require('firebase-admin');
 // ── CONFIG ─────────────────────────────────────────────────────────────────
 const LOG_CHANNEL_ID = ['1439269158356258847', '1439269286173479052', '1440547576985157772'];  // le canal où le webhook poste les logs
 
-const serviceAccount = require('./serviceAccountKey.json'); // clé Firebase Admin SDK
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://lapegre-fe080-default-rtdb.europe-west1.firebasedatabase.app' });
+const serviceAccount = JSON.parse(
+  process.env.FIREBASE_SERVICE_ACCOUNT
+);
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL:
+    'https://lapegre-fe080-default-rtdb.europe-west1.firebasedatabase.app'
+});
 const db = admin.database();
 // ──────────────────────────────────────────────────────────────────────────
 
